@@ -3,7 +3,7 @@ import numpy as np
 from io import StringIO
 
 
-def csv_to_adjmatrix(csv_text: str, directed: bool = False):
+def main(csv_text: str, directed: bool = False):
     f = StringIO(csv_text)
     reader = csv.reader(f)
     edges = []
@@ -35,6 +35,5 @@ def csv_to_adjmatrix(csv_text: str, directed: bool = False):
 with open('task0.csv', 'r', encoding='utf-8') as f:
     csv_text = f.read()
 
-matrix, nodes = csv_to_adjmatrix(csv_text, directed=False)
-print("Вершины:", nodes)
+matrix, nodes = main(csv_text, directed=False)
 print("Матрица смежности:\n", matrix)
