@@ -2,7 +2,7 @@ from math import log2, log, e
 from collections import deque
 
 
-def analyze_graph(data: str, root_node: str) -> tuple[float, float]:
+def task(data: str, root_node: str) -> tuple[float, float]:
     edge_list = [tuple(map(int, line.split(","))) for line in data.strip().splitlines()]
 
     vertices = sorted({v for edge in edge_list for v in edge})
