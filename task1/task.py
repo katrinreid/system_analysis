@@ -1,11 +1,20 @@
 from pprint import pprint
+from typing import List, Tuple
 
 
-def main(csv_text):
+def main(csv_text: str, e: str) -> Tuple[
+    List[List[int]],
+    List[List[int]],
+    List[List[int]],
+    List[List[int]],
+    List[List[int]],
+]:
     connections = [tuple(map(int, line.split(","))) for line in csv_text.strip().splitlines()]
     nodes = sorted({v for pair in connections for v in pair})
     index = {node: idx for idx, node in enumerate(nodes)}
     n = len(nodes)
+
+    root = index[int(e)]
 
     graph = [[0] * n for _ in range(n)]
     for a, b in connections:
@@ -19,24 +28,24 @@ def main(csv_text):
     pred_m = [[0] * n for _ in range(n)]
     bro_m = [[0] * n for _ in range(n)]
 
-    def traverse_successors(root: int, current: int, visited: set[int]):
+    def traverse_successors(r: int, current: int, visited: set[int]):
         for nxt in range(n):
             if graph[current][nxt] == 1 and nxt not in visited:
-                succ_m[root][nxt] = 1
+                succ_m[r][nxt] = 1
                 visited.add(nxt)
-                traverse_successors(root, nxt, visited)
+                traverse_successors(r, nxt, visited)
 
-    def traverse_predecessors(root: int, current: int, visited: set[int]):
+    def traverse_predecessors(r: int, current: int, visited: set[int]):
         for nxt in range(n):
             if graph[current][nxt] == -1 and nxt not in visited:
-                pred_m[root][nxt] = 1
+                pred_m[r][nxt] = 1
                 visited.add(nxt)
-                traverse_predecessors(root, nxt, visited)
+                traverse_predecessors(r, nxt, visited)
 
-    def find_brothers(root: int, current: int):
+    def find_brothers(r: int, current: int):
         for nxt in range(n):
-            if graph[current][nxt] == 1 and nxt != root:
-                bro_m[root][nxt] = 1
+            if graph[current][nxt] == 1 and nxt != r:
+                bro_m[r][nxt] = 1
 
     for i in range(n):
         for j in range(n):
@@ -49,16 +58,18 @@ def main(csv_text):
                 traverse_predecessors(i, j, {j})
                 find_brothers(i, j)
 
-    return [out_m, in_m, succ_m, pred_m, bro_m]
+    return out_m, in_m, succ_m, pred_m, bro_m
 
 
 if __name__ == "__main__":
-    with open("task1.csv", "r", encoding="utf-8") as file:
+    with open("graph.csv", "r", encoding="utf-8") as file:
         csv_data = file.read()
 
-    matrices = main(csv_data)
+    root_node = "1"
+
+    matrices = main(csv_data, root_node)
     labels = ["out", "in", "successors", "predecessors", "brothers"]
-    
+
     for title, mat in zip(labels, matrices):
         print(f"\n{title} matrix:")
         pprint(mat)
