@@ -66,14 +66,15 @@ def main(temperature_sets_json, heating_sets_json, rules_json, current_temperatu
     return round(numerator / denominator, 2)
 
 
-temperature_sets_json = open('temp_json.json', 'r', encoding='utf-8').read()
-heating_sets_json = open('heat_json.json', 'r', encoding='utf-8').read()
-rules_json = open('rules_json.json', 'r', encoding='utf-8').read()
+if __name__ == "__main__":
+    temperature_sets_json = open('temp_json.json', 'r', encoding='utf-8').read()
+    heating_sets_json = open('heat_json.json', 'r', encoding='utf-8').read()
+    rules_json = open('rules_json.json', 'r', encoding='utf-8').read()
 
-current_temp = -14.00
-optimal_heating = main(temperature_sets_json, heating_sets_json, rules_json, current_temp)
-print(f"Оптимальный уровень нагрева при температуре {current_temp}°C: {optimal_heating}")
+    current_temp = -14.00
+    optimal_heating = main(temperature_sets_json, heating_sets_json, rules_json, current_temp)
+    print(f"Оптимальный уровень нагрева при температуре {current_temp}°C: {optimal_heating}")
 
-current_temp = 12
-optimal_heating = main(temperature_sets_json, heating_sets_json, rules_json, current_temp)
-print(f"Оптимальный уровень нагрева при температуре {current_temp}°C: {optimal_heating}")
+    current_temp = 12
+    optimal_heating = main(temperature_sets_json, heating_sets_json, rules_json, current_temp)
+    print(f"Оптимальный уровень нагрева при температуре {current_temp}°C: {optimal_heating}")
