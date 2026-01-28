@@ -62,7 +62,7 @@ def main(csv_text: str, e: str) -> Tuple[
 
 
 if __name__ == "__main__":
-    with open("graph.csv", "r", encoding="utf-8") as file:
+    with open("task1.csv", "r", encoding="utf-8") as file:
         csv_data = file.read()
 
     root_node = "1"
