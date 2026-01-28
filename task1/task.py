@@ -52,12 +52,13 @@ def main(csv_text):
     return [out_m, in_m, succ_m, pred_m, bro_m]
 
 
-with open("task1.csv", "r", encoding="utf-8") as file:
-    csv_data = file.read()
+if __name__ == "__main__":
+    with open("task1.csv", "r", encoding="utf-8") as file:
+        csv_data = file.read()
 
-matrices = main(csv_data)
-labels = ["out", "in", "successors", "predecessors", "brothers"]
-
-for title, mat in zip(labels, matrices):
-    print(f"\n{title} matrix:")
-    pprint(mat)
+    matrices = main(csv_data)
+    labels = ["out", "in", "successors", "predecessors", "brothers"]
+    
+    for title, mat in zip(labels, matrices):
+        print(f"\n{title} matrix:")
+        pprint(mat)
